@@ -1,5 +1,13 @@
 export {
     SearchUser,
-    storeAdult
+    storeAdult,
+    storeMinor,
+    valideDose
 }
-from "./adminController"
+from "./tacheController.js"
+export {
+    LoginResp,
+    signupResp,
+    CreateCentre
+}
+from "./respController.js"

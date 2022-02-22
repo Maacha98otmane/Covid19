@@ -1,1 +1,1 @@
-export { router as adminRouter } from "./adminRouter";
+export { router as Router } from "./Router";

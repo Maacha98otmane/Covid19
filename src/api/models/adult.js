@@ -26,6 +26,10 @@ const adultSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
+  disease: {
+    type: Boolean,
+    required: true,
+  },
   age: {
     type: Number,
     trim: true,
@@ -33,7 +37,8 @@ const adultSchema = new mongoose.Schema({
   },
   rdv:{
     type:Date,
-    required:true,
+    default:null,
+
   },
   dose1:{
     type:Boolean,
@@ -47,9 +52,13 @@ const adultSchema = new mongoose.Schema({
     type:Boolean,
     default:false,
   },
+  Centre:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Centre',
+  },
   hashed_password: {
     type: String,
-    required: true,
+    default:null
   }
 }, {
   timestamps: true
