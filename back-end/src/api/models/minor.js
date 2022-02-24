@@ -46,9 +46,14 @@ const minorSchema = new mongoose.Schema({
     type:Boolean,
     default:false,
   },
-  centre:{
+  Centre:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Centre',
+  },
+  region:{
+    type: String,
+    trim: true,
+    required: true,
   },
   hashed_password: {
     type: String,

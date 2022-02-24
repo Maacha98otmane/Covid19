@@ -56,6 +56,11 @@ const adultSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Centre',
   },
+  region:{
+    type: String,
+    trim: true,
+    required: true,
+  },
   hashed_password: {
     type: String,
     default:null

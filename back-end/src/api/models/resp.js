@@ -17,7 +17,9 @@ const respSchema = new mongoose.Schema({
     required: true,
   },
   region: {
-    type: Number
+    type: String,
+    trim: true,
+    required: true,
   }
 }, {
   timestamps: true
