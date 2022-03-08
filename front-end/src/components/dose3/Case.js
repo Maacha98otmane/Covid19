@@ -10,8 +10,7 @@ import MultiStep from './MultiStep'
 // import None from './NoCase'
 // import {Link} from 'react-router-dom';
 
-export default function RadioButtonsGroup(props) {
-  const {validate}=props
+export default function RadioButtonsGroup() {
     const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
@@ -47,7 +46,14 @@ export default function RadioButtonsGroup(props) {
     
   return (
     
-      <>
+      <div>
+      <div>
+      <h1>Take a Rdv "Dose3"</h1>
+      <hr />
+      <br />
+      </div>
+      <div>
+
       <FormControl >
       <FormLabel id="demo-radio-buttons-group-label">have you got fever or flu last two week ?</FormLabel>
       <RadioGroup
@@ -62,7 +68,8 @@ export default function RadioButtonsGroup(props) {
     </FormControl>
 
 
-      {(value.yes ||value.no) && <MultiStep covid={value.yes} noCovid={value.no} validate={validate} value={value} handleClose={handleClose} open={open} /> }
-      </>
+      {(value.yes ||value.no) && <MultiStep covid={value.yes} noCovid={value.no} value={value} handleClose={handleClose} open={open} /> }
+      </div>
+      </div>
   );
 }

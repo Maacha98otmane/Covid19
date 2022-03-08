@@ -31,12 +31,6 @@ const TourCard = () =>{
 
   const {
     values,
-    handleChange,
-    dirty,
-    submitForm,
-    errors,
-    submitCount,
-    isSubmitting,
     setFieldValue
   } = useFormikContext();
 
@@ -61,7 +55,7 @@ const TourCard = () =>{
     useEffect(() => {
         
         if (disabled) {
-            
+            console.log(disabled);
             setCheckbox({
       diabete : false,
       maladie : false,
@@ -130,11 +124,11 @@ const TourCard = () =>{
                 
             </Paper>
            
-            {disabled &&  <AlertDialogSlide values={values} handleClose={handleClose} open={open} />}
+            {disabled &&  <AlertDialogSlide values={values} disabled={!disabled} handleClose={handleClose} open={open} />}
 
           </Grid>
 
-          {!disabled && Object.values(checkbox).some(e=>e===true)  && <AlertDialog values={values} handleClose={handleClose} open={open} />}
+          {!disabled && Object.values(checkbox).some(e=>e===true)  && <AlertDialog disabled={!disabled}  values={values} handleClose={handleClose} open={open} />}
 
           
       

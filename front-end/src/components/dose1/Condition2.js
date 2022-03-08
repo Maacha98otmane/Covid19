@@ -3,22 +3,22 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import Case from './Case';
-// import MultiStep from './MultiStep';
-// import link from 'react-router-dom'
+import MultiStep from './MultiStep'
+import { useEffect } from 'react';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialog(props) {
+export default function AlertDialogSlide(props) {
 
-const{handleClose,open,values}=props;
+const{handleClose,open, disabled, values}=props;
 
-React.useEffect(() => {
-  console.log("from condition 1",values);
-}, [values])
+useEffect(()=>{
 
+  console.log("multi",values);
+
+},[values])
 
   return (
     <div>
@@ -29,9 +29,9 @@ React.useEffect(() => {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Please answer this question"}</DialogTitle>
+        <DialogTitle>{"Please fill up this form"}</DialogTitle>
         <DialogContent>
-          <Case validate={values}/>
+          <MultiStep chronic_disease={disabled}  />
         </DialogContent>
         
       </Dialog>

@@ -6,8 +6,13 @@ import {
   Stepper,
   Step,
   StepLabel,
+  Select,
+  MenuItem,
+  InputLabel
 } from "@material-ui/core";
+// import InputLabel from '@mui/material/InputLabel';
 import { makeStyles } from "@material-ui/core/styles";
+import { API_URL } from "../../config";
 import {
   useForm,
   Controller,
@@ -17,6 +22,8 @@ import {
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import DateAdapter from '@mui/lab/AdapterDateFns';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 // import DateAdapter from '@mui/lab/AdapterMoment';
 
@@ -28,23 +35,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-
-
-    
-
-
   return [
     "Personal information",
     "Cin",
   ];
 }
+
+
+
+
 const BasicForm = () => {
+  const [centres, setCentres] = useState([]);
+
+useEffect(() => {
+  CentresGet()
+}, [])
+
+
+const CentresGet = () => {
+  fetch(`${API_URL}getAllcentre`)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        setCentres(result.centres)
+      }
+    )
+}
   const { control } = useFormContext();
   return (
     <>
       <Controller
         control={control}
-        name="firstName"
+        name="prenom"
         render={({ field }) => (
           <TextField
             id="first-name"
@@ -57,10 +79,46 @@ const BasicForm = () => {
           />
         )}
       />
+        <InputLabel id="demo-simple-select-label">Region</InputLabel>
+      <Controller
+        control={control}
+        name="select"
+        render={({ field }) => (
+          <Select
+          label="Region"
+          labelId="demo-simple-select-label"
+          fullWidth
+          id="demo-simple-select"
+          {...field}
+          >
+    <MenuItem value={3}>Casablanca</MenuItem>
+    <MenuItem value={1}>Marrakesh/Safi</MenuItem>
+    <MenuItem value={2}>Tanger</MenuItem>
+    
+  </Select>
+        )}
+      />
+        <InputLabel id="demo-simple-select-label">Centre</InputLabel>
+      <Controller
+        control={control}
+        name="centre"
+        render={({ field }) => (
+          <Select
+          label="Centre"
+          labelId="demo-simple-select-label"
+          fullWidth
+          id="demo-simple-select"
+          {...field}
+          >
+{centres.map((centre) => (
+    <MenuItem key={centre._id} value={centre._id}>{centre.name}</MenuItem>
+  ))}
+        </Select>)}
+      />
 
       <Controller
         control={control}
-        name="lastName"
+        name="nom"
         render={({ field }) => (
           <TextField
             id="last-name"
@@ -121,13 +179,13 @@ const CinForm = () => {
 
         <Controller
         control={control}
-        name="finCin"
+        name="date_fin_cin"
         
         render={({ field }) => (
             <LocalizationProvider dateAdapter={DateAdapter}>
                 
           <DesktopDatePicker
-            id="finCin"
+            id="date_fin_cin"
             label="enter your fin cin "
             inputFormat="MM/dd/yyyy"
             value={value}
@@ -144,10 +202,10 @@ const CinForm = () => {
 
       {/* <Controller
         control={control}
-        name="finCin"
+        name="date_fin_cin"
         render={({ field }) => (
           <TextField
-            id="finCin"
+            id="date_fin_cin"
             label="fin cin"
             variant="outlined"
             placeholder="Enter Your fin cin"
@@ -171,25 +229,26 @@ function getStepContent(step) {
       return "unknown step";
   }
 }
-
+const MySwal = withReactContent(Swal)
 const LinaerStepper = (props) => {
 
-const {validate,covid,noCovid}=props;
+const {chronic_disease,covid,noCovid}=props;
 useEffect(()=>{
-  console.log(validate);
+  console.log(chronic_disease);
 
-},[validate])
+},[chronic_disease])
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      nom: "",
+      prenom: "",
       age: "",
       cin: "",
-      finCin: "",
-      validate,
+      date_fin_cin: "",
+      chronic_disease,
       covid,
-      noCovid
+      noCovid,
+      select : ""
     },
   });
   const [activeStep, setActiveStep] = useState(0);
@@ -200,12 +259,38 @@ useEffect(()=>{
   const handleNext = (data) => {
     console.log(data);
     if (activeStep === steps.length - 1) {
-
           setActiveStep(activeStep + 1);
+          fetch(`${API_URL}storeAdult`,{
+            method:"POST",
+            headers:{
+                "Accept":"application/json",
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+        .then(res =>res.json())
+        .then(res => {
+           console.log(res)
+           MySwal.fire({
+            position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500,
+            
+          }).then(() => {
+            return MySwal.fire(       
+              // window.location = '/'
+            )
+          })
+            
+        })
     } else {
       setActiveStep(activeStep + 1);
+      
 
     }
+
   };
 
   const handleBack = () => {

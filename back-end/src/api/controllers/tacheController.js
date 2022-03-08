@@ -424,6 +424,7 @@ const validation = async (req, res) => {
             if (result.dose1 == false) {
                 result.dose1 = true;
                 result.hashed_password=null
+                result.rdv=null
                 result.save()
                 return res.status(201).json({
                     status: true,
@@ -433,6 +434,7 @@ const validation = async (req, res) => {
             if (result.dose2 == false) {
                 result.dose2 = true;
                 result.hashed_password=null
+                result.rdv=null
                 result.save()
                 return res.status(201).json({
                     status: true,
@@ -442,6 +444,7 @@ const validation = async (req, res) => {
             if (result.dose3 == false) {
                 result.dose3 = true;
                 result.hashed_password=null
+                result.rdv=null
                 result.save()
                 return res.status(201).json({
                     status: true,
