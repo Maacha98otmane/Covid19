@@ -13,6 +13,8 @@ import Admin  from './components/admin/index';
 import Respos  from './components/admin/Respo';
 import Centre  from './components/admin/centre';
 import Status  from './components/admin/stats';
+import NavBar  from './components/navbar';
+
 
 
 
@@ -33,11 +35,11 @@ function App() {
         }} >
        <Routes>
       
-          
           <Route path="/newUser" element={<CardFormikProvider><TourCard /></ CardFormikProvider>} />
           <Route path="/dose2" element={<Case />}/>
           <Route path="/dose3" element={<Case2 />}/>
           <Route path="/" element={<Start></Start>}/>
+          
           <Route path="/admin" element={<Admin></Admin>}>
             <Route path='/admin' element={<Status></Status>}  />
             <Route path='/admin/respos' element={<Respos></Respos>}  />

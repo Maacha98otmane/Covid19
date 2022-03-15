@@ -49,8 +49,8 @@ router.delete("/DeleteCentre/:id", DeleteCentre)
 router.get("/getThirdDose", getThirdDose)
 router.get("/getFirstDose", getFirstDose)
 router.get("/getSecondeDose", getSecondeDose)
-router.post("/storeDose2", storeDose2)
-router.post("/storeDose3", storeDose3)*
+router.post("/storeDose2/:id", storeDose2)
+router.post("/storeDose3/:id", storeDose3)*
 //Store New User
 router.post("/storeAdult", storeAdult)
 router.post("/storeMinor", storeMinor)

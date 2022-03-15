@@ -52,18 +52,33 @@ export default function UserCreate() {
       })
       .then(res => res.json())
       .then(res => {
-            if(res.msg ==="dose1" || res.status === false){
+        console.log(res)
+        if(res.status === false){
+          window.location = '/newUser'
+        }else{
+          if(res.data.rdv === null ){
+            if(res.msg ==="dose1"){
               window.location = '/newUser'
               toastr.info('New User','Please insert all info',{positionClass:"toastr-bottom-left"})
             }
             if(res.msg==="dose2"){
+              localStorage.setItem('token-Dose',JSON.stringify(res.data.cin))
               window.location = '/dose2'
-
+  
             }
             if(res.msg==="dose3"){
+              localStorage.setItem('token-Dose',JSON.stringify(res.data.cin))
               window.location = '/dose3'
-
+  
             }
+          }else{
+  
+            console.log(res.data.rdv)
+  
+          }
+        }
+       
+           
     })
     }
 

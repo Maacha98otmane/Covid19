@@ -82,7 +82,7 @@ const CentresGet = () => {
         <InputLabel id="demo-simple-select-label">Region</InputLabel>
       <Controller
         control={control}
-        name="select"
+        name="region"
         render={({ field }) => (
           <Select
           label="Region"
@@ -248,7 +248,7 @@ useEffect(()=>{
       chronic_disease,
       covid,
       noCovid,
-      select : ""
+      region : ""
     },
   });
   const [activeStep, setActiveStep] = useState(0);
@@ -280,7 +280,7 @@ useEffect(()=>{
             
           }).then(() => {
             return MySwal.fire(       
-              // window.location = '/'
+              window.location = '/'
             )
           })
             
