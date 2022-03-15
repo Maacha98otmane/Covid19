@@ -134,7 +134,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['citoyen', 'centre'].map((text, index) => (
+          {['respos', 'centre'].map((text, index) => (
               <>
             <ListItemButton
               onClick={()=>{navigate(text)}}

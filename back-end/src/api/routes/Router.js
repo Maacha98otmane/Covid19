@@ -14,6 +14,10 @@ import {
     getThirdDose,
     storeMinor,
     LoginResp,
+    AllRespo,
+    OneRespo,
+    UpdateRespo,
+    DeleteRespo,
     AllCentre,
     CreateCentre,
     signupResp,
@@ -23,27 +27,33 @@ import {
     valideDose
 } from "../controllers"
 
-// import {
-//     CreatUserValidator,
-// } from "../middlewares"
 
 router.post("/SearchUser", SearchUser)
-router.post("/loginResp", LoginResp)
-router.post("/CreateCentre", CreateCentre)
-router.post("/signupResp", signupResp)
 router.post("/validation/:id", validation)
+router.post("/valideDose", valideDose)
 router.get("/getAll/:id", getAll)
+// Responsable
+router.post("/loginResp", LoginResp)
+router.post("/signupResp", signupResp)
+router.get("/AllRespo", AllRespo)
+router.get("/OneRespo/:id", OneRespo)
+router.post("/UpdateRespo/:id", UpdateRespo)
+router.delete("/DeleteRespo/:id", DeleteRespo)
+//Centre
+router.post("/CreateCentre", CreateCentre)
 router.get("/getAllcentre", AllCentre)
-router.get("/getFirstDose", getFirstDose)
-router.get("/getSecondeDose", getSecondeDose)
 router.get("/OneCentre/:id", OneCentre)
 router.post("/UpdateCentre/:id", UpdateCentre)
 router.delete("/DeleteCentre/:id", DeleteCentre)
+//Stat
 router.get("/getThirdDose", getThirdDose)
-router.post("/storeAdult", storeAdult)
+router.get("/getFirstDose", getFirstDose)
+router.get("/getSecondeDose", getSecondeDose)
 router.post("/storeDose2", storeDose2)
-router.post("/storeDose3", storeDose3)
+router.post("/storeDose3", storeDose3)*
+//Store New User
+router.post("/storeAdult", storeAdult)
 router.post("/storeMinor", storeMinor)
-router.post("/valideDose", valideDose)
+
 
 export { router }

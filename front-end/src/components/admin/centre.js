@@ -41,12 +41,11 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-  export default function Citoyen() {
+  export default function Centre() {
 
+
+    const classes = useStyles();
     const [centreId , setCentreId] = useState("")
-
-
-  const classes = useStyles();
     const [centres, setCentres] = useState([]);
     useEffect(() => {
         CentresGet()

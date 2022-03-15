@@ -8,7 +8,6 @@ const CreateCentre = (req, res) => {
         }
         res.send(centre)
     })
-
 }
 const AllCentre = async (req, res) => {
 

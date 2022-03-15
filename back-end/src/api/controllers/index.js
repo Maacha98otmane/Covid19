@@ -14,6 +14,10 @@ export {
 from "./tacheController.js"
 export {
     LoginResp,
+    AllRespo,
+    OneRespo,
+    UpdateRespo,
+    DeleteRespo,
     signupResp,
 }
 from "./respController.js"

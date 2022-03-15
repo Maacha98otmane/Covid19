@@ -10,7 +10,7 @@ import Start  from './components/Start';
 import Respo  from './components/respo/';
 import RespoHome  from './components/respo/home';
 import Admin  from './components/admin/index';
-import Citoyen  from './components/admin/citoyen';
+import Respos  from './components/admin/Respo';
 import Centre  from './components/admin/centre';
 import Status  from './components/admin/stats';
 
@@ -40,7 +40,7 @@ function App() {
           <Route path="/" element={<Start></Start>}/>
           <Route path="/admin" element={<Admin></Admin>}>
             <Route path='/admin' element={<Status></Status>}  />
-            <Route path='/admin/citoyen' element={<Citoyen></Citoyen>}  />
+            <Route path='/admin/respos' element={<Respos></Respos>}  />
             <Route path='/admin/centre' element={<Centre></Centre>}  />
           </Route>
           <Route path="/respo" element={<Respo></Respo>}/>

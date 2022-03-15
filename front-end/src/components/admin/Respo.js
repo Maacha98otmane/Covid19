@@ -3,6 +3,7 @@ import { API_URL } from "../../config";
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
+import Button from '@material-ui/core/Button';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import Typography from '@mui/material/Typography';
@@ -13,6 +14,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Avatar from '@material-ui/core/Avatar';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlertDialogSlide from "./createrespo";
+import AlertDialogSlide1 from "./editrespo";
 
 
 
@@ -36,25 +41,63 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-  export default function Citoyen() {
-  const classes = useStyles();
-    const [users, setUsers] = useState([]);
+  export default function Respo() {
+    
+    const classes = useStyles();
+    const [respoId , setRespoId] = useState("")
+    const [respos, setRespos] = useState([]);
     useEffect(() => {
-        UsersGet()
+        ResposGet()
       }, [])
 
-      const jwt = localStorage.getItem('token-info')
-  const region = JSON.parse(jwt).region
-  const UsersGet = () => {
-    fetch(`${API_URL}getAll/`+region)
+  const ResposGet = () => {
+    fetch(`${API_URL}AllRespo/`)
       .then(res => res.json())
       .then(
         (result) => {
-            console.log(result.users)
-          setUsers(result.users)
+            console.log(result.respos)
+          setRespos(result.respos)
         }
       )
   }
+
+  const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  const [open1, setOpen1] = React.useState(false);
+
+    const handleClickOpen1 = () => {
+      setOpen1(true);
+    };
+
+  
+    const handleClose1 = () => {
+      setOpen1(false);
+    };
+
+    const  RespoDelete = async id => {
+        var data = {
+          'id': id
+        }
+        await fetch(`${API_URL}DeleteRespo/`+id, {
+          method: 'DELETE',
+          headers: {
+            Accept: 'application/form-data',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }) 
+        ResposGet();    
+    
+      }
+
   return (
     <div className={classes.root}>
       <Container className={classes.container} maxWidth="lg">    
@@ -62,9 +105,12 @@ const useStyles = makeStyles((theme) => ({
           <Box display="flex">
             <Box flexGrow={1}>
               <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                USERS
+                Responsable
               </Typography>
             </Box>
+            <Button variant="contained" color="primary"onClick={() => {handleClickOpen(!open)} }>
+                  CREATE
+                </Button>
           </Box>
           <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
@@ -72,26 +118,29 @@ const useStyles = makeStyles((theme) => ({
               <TableRow>
                 <TableCell align="center">Avatar</TableCell>
                 <TableCell align="left">Full Name</TableCell>
-                <TableCell align="left">Cin</TableCell>
-                <TableCell align="left">Dernier Dose</TableCell>
+                <TableCell align="left">Email</TableCell>
+                <TableCell align="left">createdAt</TableCell>
                 <TableCell align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user) => (
-                <TableRow key={user._id}>
+              {respos.map((respo) => (
+                <TableRow key={respo._id}>
                   <TableCell align="center">
                     <Box display="flex" justifyContent="center">
-                      <Avatar src={user.avatar} />
+                      <Avatar src={respo.avatar} />
                     </Box>
                   </TableCell>
-                  <TableCell align="left">{user.nom} {user.prenom}</TableCell>
-                  { <TableCell align="left">{user.cin}</TableCell>}
-                  {user.dose3 === true ? <TableCell align="left">Dose3</TableCell> : 
-                  user.dose2 === true ? <TableCell align="left">Dose2</TableCell> : 
-                  user.dose1 === true ? <TableCell align="left">Dose1</TableCell> : <TableCell align="left">Pas encore</TableCell>} 
+                  <TableCell align="left">{respo.username}</TableCell>
+                  <TableCell align="left">{respo.email}</TableCell> 
+                  <TableCell align="left">{respo.createdAt}</TableCell> 
                   <TableCell align="center">
                     <ButtonGroup color="primary" aria-label="outlined primary button group">
+                    <EditIcon  onClick={() => {
+                        handleClickOpen1(!open1) 
+                        setRespoId(respo._id)
+                    }}>Edit</EditIcon>
+                    <DeleteIcon onClick={() => RespoDelete(respo._id)}>Del</DeleteIcon>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
@@ -100,6 +149,8 @@ const useStyles = makeStyles((theme) => ({
           </Table>
         </TableContainer>
         </Paper>
+        {<AlertDialogSlide ff={ResposGet}  handleClose={handleClose} open={open} />}
+        {<AlertDialogSlide1 ff={ResposGet} respoId={respoId} handleClose={handleClose1} open={open1} />}
       </Container>
         </div>
   )
