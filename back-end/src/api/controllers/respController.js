@@ -1,5 +1,4 @@
 const Resp = require('../models/resp')
-const Centre = require('../models/centre')
 
 const signupResp = (req, res) => {
 
@@ -12,34 +11,7 @@ const signupResp = (req, res) => {
     })
 
 }
-const CreateCentre = (req, res) => {
 
-    const centre = new Centre(req.body);
-    centre.save((err, centre) => {
-        if (err) {
-            return res.status(400).send(err)
-        }
-        res.send(centre)
-    })
-
-}
-const AllCentre = async (req, res) => {
-
-    try {
-        const centres = await Centre.find()
-        res.status(200).json({
-            status: true,
-            centres
-
-        })
-    } catch (err) {
-        res.status(400).json({
-            status: false,
-            msg: err
-        })
-    }
-
-}
 const LoginResp = (req, res) => {
 
     const {
@@ -70,7 +42,5 @@ const LoginResp = (req, res) => {
 }
 export {
     LoginResp,
-    AllCentre,
     signupResp,
-    CreateCentre
 }

@@ -482,6 +482,56 @@ const getAll = async (req, res) => {
         })
     }
 }
+const getFirstDose = async (req, res) => {
+    
+    try {
+        const users = await Adult.find(
+            { $or:[ {dose1:true}, { dose2:true}, { dose3:true} ]}).count()
+        res.status(200).json({
+            status: true,
+            users
+
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: false,
+            msg: err
+        })
+    }
+}
+const getThirdDose = async (req, res) => {
+    
+    try {
+        const users = await Adult.find({dose3:true}).count()
+        res.status(200).json({
+            status: true,
+            users
+
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: false,
+            msg: err
+        })
+    }
+}
+const getSecondeDose = async (req, res) => {
+    
+    try {
+        const users = await Adult.find(
+            { $or:[ { dose2:true}, { dose3:true} ]}).count()
+        res.status(200).json({
+            status: true,
+            users
+
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: false,
+            msg: err
+        })
+    }
+}
 
 export {
     SearchUser,
@@ -490,6 +540,9 @@ export {
     storeDose2,
     storeDose3,
     storeMinor,
+    getFirstDose,
+    getSecondeDose,
+    getThirdDose,
     valideDose,
     validation
 }
