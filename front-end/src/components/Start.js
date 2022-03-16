@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Rdv from "./rdv";
+
 import toastr from 'toastr'
 import "toastr/build/toastr.css"
 
@@ -33,7 +35,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserCreate() {
   const classes = useStyles();
+  //POPUP RDV
+  const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
   
+    const handleClose = () => {
+      setOpen(false);
+      localStorage.clear();
+
+    };
+
   const handleSubmit = event => {
     event.preventDefault();
     var data = {
@@ -52,7 +67,6 @@ export default function UserCreate() {
       })
       .then(res => res.json())
       .then(res => {
-        console.log(res)
         if(res.status === false){
           window.location = '/newUser'
         }else{
@@ -72,9 +86,9 @@ export default function UserCreate() {
   
             }
           }else{
-  
             console.log(res.data.rdv)
-  
+            localStorage.setItem('token-RDV',JSON.stringify(res.data.rdv))
+              handleClickOpen(!open) 
           }
         }
        
@@ -84,6 +98,8 @@ export default function UserCreate() {
 
   const [CIN, setCIN] = useState('');
   const [date, setdate] = useState('');
+
+
   return (
     <Container maxWidth="xs">
       <div className={classes.paper}>
@@ -124,6 +140,7 @@ export default function UserCreate() {
           </Button>
         </form>
       </div>
+      {<Rdv handleClose={handleClose} open={open} />}
     </Container>
 
   );
