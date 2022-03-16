@@ -14,6 +14,8 @@ import {
     getThirdDose,
     storeMinor,
     LoginResp,
+    LoginAdmin,
+    signupAdmin,
     AllRespo,
     OneRespo,
     UpdateRespo,
@@ -32,6 +34,9 @@ router.post("/SearchUser", SearchUser)
 router.post("/validation/:id", validation)
 router.post("/valideDose", valideDose)
 router.get("/getAll/:id", getAll)
+//Admin Auth
+router.post("/LoginAdmin", LoginAdmin)
+router.post("/signupAdmin", signupAdmin)
 // Responsable
 router.post("/loginResp", LoginResp)
 router.post("/signupResp", signupResp)

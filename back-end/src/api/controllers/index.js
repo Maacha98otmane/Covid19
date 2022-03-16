@@ -22,6 +22,11 @@ export {
 }
 from "./respController.js"
 export {
+    LoginAdmin,
+    signupAdmin,
+}
+from "./admin.js"
+export {
         AllCentre,
         OneCentre,
         UpdateCentre,

@@ -14,6 +14,7 @@ import Respos  from './components/admin/Respo';
 import Centre  from './components/admin/centre';
 import Status  from './components/admin/stats';
 import NavBar  from './components/navbar';
+import Login  from './components/admin/login';
 
 
 
@@ -39,7 +40,7 @@ function App() {
           <Route path="/dose2" element={<Case />}/>
           <Route path="/dose3" element={<Case2 />}/>
           <Route path="/" element={<Start></Start>}/>
-          
+          <Route path="/admin/login" element={<Login></Login>}/>
           <Route path="/admin" element={<Admin></Admin>}>
             <Route path='/admin' element={<Status></Status>}  />
             <Route path='/admin/respos' element={<Respos></Respos>}  />
